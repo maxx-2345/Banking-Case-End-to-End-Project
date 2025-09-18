@@ -1,183 +1,260 @@
-# COVID-19 Data Analysis Project
+# Banking Analytics End-to-End Project
 
-A comprehensive SQL-based analysis of global COVID-19 data, examining infection rates, death rates, vaccination patterns, and continental trends from the pandemic period.
+A comprehensive data analytics project focused on banking customer analysis, featuring exploratory data analysis using Python and interactive dashboard visualization with Power BI.
 
 ## 📊 Project Overview
 
-This project analyzes global COVID-19 data using SQL to extract meaningful insights about the pandemic's impact across different countries and continents. The analysis includes data exploration, statistical calculations, and data preparation for visualization tools like Tableau.
+This end-to-end banking analytics project demonstrates the complete data science workflow from raw data exploration to business intelligence visualization. The project analyzes banking customer data to uncover insights about customer demographics, financial behaviors, risk patterns, and loyalty classifications using statistical analysis and interactive dashboards.
 
 ## 🗂️ Repository Structure
 
 ```
-Covid_19_Analysis/
-├── CovidDeaths_1.csv           # Global COVID-19 deaths and cases data
-├── CovidVaccinations.csv       # Global vaccination data
-├── covid_Analysis.sql          # Main SQL analysis script
-├── tableau table 1.csv         # Global death percentage summary
-├── tableau table 2.csv         # Continental death count rankings
-├── tableau table 3.csv         # Country infection rate analysis
-└── tableau table 4.csv         # Time series death percentage data
+Banking-Case-End-to-End-Project/
+├── Banking Case.ipynb           # Main Python analysis notebook
+├── Banking.csv                  # Primary banking customer dataset
+├── clients.csv                  # Gender lookup table (GenderId mapping)
+├── Banking Dashboard (2025).pbix # Power BI dashboard file
+└── README.md                    # Project documentation
 ```
 
 ## 📈 Data Analysis Features
 
-### Core Metrics Analyzed:
-- **Death Percentage**: Total deaths vs total cases by location and date
-- **Infection Rate**: Total cases vs population percentage
-- **Continental Comparisons**: Highest death counts by continent
-- **Time Series Analysis**: Daily progression of cases and deaths
-- **Vaccination Progress**: Rolling vaccination counts by location
+### Dataset Overview:
+- **Sample Size**: 3,000 banking customers
+- **Features**: 25 columns including demographics, financial metrics, and risk indicators
+- **Data Types**: Mixed (numerical, categorical, and temporal data)
 
-### Key SQL Techniques Used:
-- **Window Functions**: `SUM() OVER()` for rolling calculations
-- **Common Table Expressions (CTEs)**: For complex data transformations
-- **Temporary Tables**: For intermediate result storage
-- **Views**: For reusable query components
-- **Joins**: Combining deaths and vaccination datasets
-- **Aggregations**: Country and continental summaries
+### Key Metrics Analyzed:
+- **Customer Demographics**: Age, nationality, gender, occupation analysis
+- **Financial Metrics**: Income bands, credit card usage, loan patterns
+- **Account Analysis**: Deposits, savings, checking accounts, foreign currency
+- **Risk Assessment**: Risk weighting, property ownership, business lending
+- **Loyalty Segmentation**: Customer loyalty classifications (Jade, Gold, Silver, Platinum)
 
-## 🔍 Analysis Highlights
+### Advanced Analytics Techniques:
+- **Income Segmentation**: Custom income banding (Low: <$100K, Mid: $100K-$300K, High: >$300K)
+- **Correlation Analysis**: Relationship mapping between financial variables
+- **Distribution Analysis**: Statistical distribution of numerical features
+- **Categorical Analysis**: Frequency analysis of customer segments
 
-### Global Statistics
-- **Total Cases**: 150,574,977
-- **Total Deaths**: 3,180,206
-- **Global Death Rate**: 2.11%
+## 🛠️ Technologies & Tools Used
 
-### Continental Rankings (by Total Deaths)
-1. **Europe**: 1,016,750 deaths
-2. **North America**: 847,942 deaths
-3. **South America**: 672,415 deaths
-4. **Asia**: 520,269 deaths
-5. **Africa**: 121,784 deaths
-6. **Oceania**: 1,046 deaths
+### **Data Analysis Stack**:
+- **Python**: Primary analysis language
+- **Pandas**: Data manipulation and analysis
+- **NumPy**: Numerical computing
+- **Matplotlib**: Statistical visualizations
+- **Seaborn**: Advanced statistical plots
 
-### Top Countries by Infection Rate
-1. **Andorra**: 17.13% population infected
-2. **Montenegro**: 15.51% population infected
-3. **Czechia**: 15.23% population infected
+### **Database & Connectivity**:
+- **MySQL**: Database storage and queries
+- **mysql-connector-python**: Database connectivity
 
-## 🛠️ Technologies Used
+### **Business Intelligence**:
+- **Power BI**: Interactive dashboard creation
+- **CSV**: Data exchange format
 
-- **SQL**: Primary analysis language
-- **CSV**: Data storage format
-- **Tableau**: Visualization preparation (output tables)
+## 🔍 Key Analysis Insights
 
-## 📋 Query Categories
+### Customer Demographics:
+- **Nationality Distribution**: European (44%), Asian (25%), American (17%)
+- **Gender Distribution**: Balanced gender representation (Female: 50.4%, Male: 49.6%)
+- **Income Segments**: Mid-income customers dominate (50.6%), followed by Low-income (34.2%)
 
-### 1. **Basic Data Exploration**
-- Filtering non-null continent data
-- Sorting by location and date
-- Basic case and death statistics
+### Financial Behavior Patterns:
+- **Credit Card Usage**: Most customers hold 1 credit card (64.1%)
+- **Property Ownership**: Average 1-2 properties per customer
+- **Fee Structure**: High-fee customers represent 49.2% of the customer base
 
-### 2. **Percentage Calculations**
-```sql
--- Death percentage calculation
-(total_deaths/total_cases)*100 as DeathPercentage
+### Loyalty Classifications:
+- **Jade Level**: Highest segment (44.4% of customers)
+- **Silver Level**: Second largest (25.6%)
+- **Gold Level**: Premium segment (19.5%)
+- **Platinum Level**: Elite segment (10.6%)
 
--- Population infection percentage
-(total_cases/population)*100 as CovidPercentage
+### Risk Assessment:
+- **Risk Weighting**: Most customers classified as moderate risk (Risk Level 2: 40.7%)
+- **Business Lending**: Strong correlation with income levels and property ownership
+
+## 📋 Analysis Workflow
+
+### 1. **Data Connection & Loading**
+```python
+# MySQL database connection
+cnx = mysql.connector.connect(
+    host="127.0.0.1",
+    port=3306,
+    user="root",
+    password="422123"
+)
+df = pd.read_sql("SELECT * FROM banking_case.customers", cnx)
 ```
 
-### 3. **Ranking Analysis**
-- Countries with highest infection rates
-- Countries with highest death counts
-- Continental death count rankings
+### 2. **Data Preprocessing**
+- Income band categorization using `pd.cut()`
+- Data type validation and missing value analysis
+- Feature engineering for analytical insights
 
-### 4. **Time Series Analysis**
-- Daily global numbers
-- Rolling vaccination counts
-- Percentage calculations over time
+### 3. **Exploratory Data Analysis (EDA)**
 
-### 5. **Advanced Analytics**
-- CTE implementations for complex calculations
-- Temporary table creation for data processing
-- View creation for reusable components
+**Univariate Analysis**:
+- Distribution analysis of individual variables
+- Frequency counts for categorical variables
+- Statistical summaries for numerical features
 
-## 📊 Output Files for Visualization
+**Bivariate Analysis**:
+- Cross-tabulation analysis by nationality
+- Correlation matrix for financial variables
+- Relationship analysis between customer segments
 
-The project generates four Tableau-ready CSV files:
+**Numerical Analysis**:
+- Histogram distributions with KDE curves
+- Correlation heatmap for financial metrics
+- Statistical relationship identification
 
-1. **tableau table 1.csv**: Global summary statistics
-2. **tableau table 2.csv**: Continental death rankings
-3. **tableau table 3.csv**: Country infection rate rankings
-4. **tableau table 4.csv**: Time series data for trend analysis
+### 4. **Visualization & Insights**
+- Count plots for categorical distributions
+- Histogram analysis for numerical variables
+- Correlation heatmaps for relationship mapping
+- Power BI dashboard for business intelligence
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- SQL-compatible database system (MySQL, PostgreSQL, SQL Server, etc.)
-- CSV import capabilities
-- Optional: Tableau for visualization
+- **Python 3.7+** with data science libraries
+- **MySQL Server** for database operations
+- **Power BI Desktop** for dashboard viewing
+- **Jupyter Notebook** environment
 
-### Setup Instructions
+### Installation & Setup
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/maxx-2345/Covid_19_Analysis.git
-   cd Covid_19_Analysis
+   git clone https://github.com/maxx-2345/Banking-Case-End-to-End-Project.git
+   cd Banking-Case-End-to-End-Project
    ```
 
-2. **Import the data**:
-   - Import `CovidDeaths_1.csv` as table `covid_death`
-   - Import `CovidVaccinations.csv` as table `covid_vaccination`
+2. **Install required packages**:
+   ```bash
+   pip install pandas numpy matplotlib seaborn mysql-connector-python
+   ```
 
-3. **Run the analysis**:
-   - Execute `covid_Analysis.sql` in your SQL environment
-   - Queries are organized in logical sections for step-by-step execution
+3. **Database setup**:
+   - Import `Banking.csv` into MySQL as `banking_case.customers` table
+   - Configure database connection parameters in the notebook
 
-4. **Generate visualization data**:
-   - The SQL script will create the tableau table outputs
-   - Use these CSV files for creating dashboards and visualizations
+4. **Run the analysis**:
+   - Open `Banking Case.ipynb` in Jupyter Notebook
+   - Execute cells sequentially for complete analysis
+   - Review generated visualizations and insights
 
-## 📊 Sample Queries
+5. **View dashboard**:
+   - Open `Banking Dashboard (2025).pbix` in Power BI Desktop
+   - Explore interactive visualizations and KPIs
 
-### Find Countries with Highest Death Rate:
-```sql
-SELECT location, 
-       MAX(total_deaths) as HighestDeathCount
-FROM covid_death
-WHERE continent IS NOT NULL 
-  AND continent != ''
-GROUP BY location
-ORDER BY HighestDeathCount DESC;
+## 📊 Sample Analysis Code
+
+### Income Band Creation:
+```python
+# Define income band boundaries
+bins = [0, 100000, 300000, float('inf')]
+labels = ['Low', 'Mid', 'High']
+
+# Create Income Band column
+df['Income Band'] = pd.cut(df['Estimated Income'], 
+                          bins=bins, 
+                          labels=labels, 
+                          include_lowest=True)
 ```
 
-### Calculate Rolling Vaccination Percentage:
-```sql
-WITH PopvsVac AS (
-    SELECT dea.continent, dea.location, dea.date, 
-           dea.population, vac.new_vaccinations,
-           SUM(vac.new_vaccinations) 
-           OVER(PARTITION BY dea.location ORDER BY dea.date) AS RollingPeopleVaccinated
-    FROM covid_death dea
-    JOIN covid_vaccination vac
-      ON dea.location = vac.location
-     AND dea.date = vac.date
-    WHERE dea.continent IS NOT NULL
-)
-SELECT *, (RollingPeopleVaccinated/Population)*100 AS VaccinationPercent
-FROM PopvsVac
-ORDER BY Location, Date;
+### Correlation Analysis:
+```python
+numerical_cols = ['Estimated Income', 'Superannuation Savings', 
+                 'Credit Card Balance', 'Bank Loans', 'Bank Deposits']
+                 
+correlation_matrix = df[numerical_cols].corr()
+sns.heatmap(correlation_matrix, annot=True, cmap='crest', fmt='.2f')
 ```
 
-## 📝 Analysis Insights
+### Customer Segmentation Analysis:
+```python
+# Analyze customer distribution by loyalty and nationality
+sns.countplot(data=df, x='Loyalty Classification', hue='Nationality')
+plt.title('Customer Loyalty by Nationality')
+plt.show()
+```
 
-- **European Impact**: Europe had the highest absolute death toll, highlighting the severe impact of early pandemic waves
-- **Small Nation Vulnerability**: Smaller countries like Andorra and Montenegro showed higher infection percentages relative to population
-- **Continental Disparities**: Significant differences in death rates between continents, reflecting varying healthcare capabilities and pandemic responses
-- **Temporal Patterns**: Death percentages varied significantly over time, showing the evolution of treatment and virus variants
+## 📈 Business Impact & Applications
+
+### **Customer Insights**:
+- **Segmentation Strategy**: Data-driven customer categorization for targeted marketing
+- **Risk Management**: Comprehensive risk assessment based on financial behavior
+- **Product Recommendations**: Personalized banking product suggestions
+
+### **Operational Benefits**:
+- **Resource Allocation**: Optimize branch resources based on customer demographics
+- **Pricing Strategy**: Fee structure optimization based on customer value analysis
+- **Retention Programs**: Loyalty-based customer retention initiatives
+
+### **Strategic Decision Support**:
+- **Market Expansion**: Geographic expansion based on nationality patterns
+- **Product Development**: New product development based on customer needs analysis
+- **Regulatory Compliance**: Risk-based compliance monitoring and reporting
+
+## 🎯 Key Performance Indicators (KPIs)
+
+- **Customer Acquisition**: New customer onboarding trends
+- **Revenue per Customer**: Average revenue generated by customer segment
+- **Risk Exposure**: Portfolio risk distribution analysis
+- **Loyalty Metrics**: Customer retention and loyalty progression
+- **Product Penetration**: Cross-selling and up-selling opportunities
+
+## 📊 Dashboard Features
+
+The Power BI dashboard includes:
+- **Executive Summary**: High-level KPIs and metrics
+- **Customer Demographics**: Interactive demographic analysis
+- **Financial Performance**: Revenue and profitability analysis
+- **Risk Assessment**: Portfolio risk monitoring
+- **Loyalty Analysis**: Customer loyalty trend analysis
+
+## 📝 Future Enhancements
+
+- **Machine Learning Models**: Predictive modeling for customer churn and credit scoring
+- **Real-time Analytics**: Live dashboard updates with streaming data
+- **Advanced Segmentation**: K-means clustering for sophisticated customer grouping
+- **Sentiment Analysis**: Customer feedback analysis integration
+- **Regulatory Reporting**: Automated compliance reporting features
 
 ## 🤝 Contributing
 
-This project is part of a data analysis portfolio. Suggestions for improvements or additional analysis dimensions are welcome!
+This project is part of a data analytics portfolio demonstrating end-to-end analytical capabilities. Contributions, suggestions, and improvements are welcome!
 
-## 📧 Contact
+### Areas for Contribution:
+- Advanced statistical analysis techniques
+- Additional visualization methods
+- Machine learning model integration
+- Dashboard enhancement suggestions
+
+## 📧 Contact & Support
 
 **GitHub**: [@maxx-2345](https://github.com/maxx-2345)
+**Project Type**: Banking Domain Data Analytics
+**Skill Level**: Intermediate to Advanced
 
-## 🏷️ Tags
+## 🏷️ Project Tags
 
-`#COVID19` `#DataAnalysis` `#SQL` `#PublicHealth` `#DataScience` `#Pandemic` `#Tableau` `#DataVisualization`
+`#DataAnalytics` `#Python` `#PowerBI` `#Banking` `#EDA` `#BusinessIntelligence` `#CustomerAnalytics` `#MySQL` `#DataVisualization` `#FinancialAnalysis`
 
 ---
+
+## 🔗 Related Projects
+
+- [COVID-19 Data Analysis](https://github.com/maxx-2345/Covid_19_Analysis) - SQL-based pandemic analysis
+- *Additional portfolio projects coming soon*
+
+---
+
 *Last Updated: September 2025*
+
+**Project Status**: ✅ Complete | **Documentation**: ✅ Comprehensive | **Deployment**: 🚀 Ready
